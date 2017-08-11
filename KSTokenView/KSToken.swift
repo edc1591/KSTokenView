@@ -150,7 +150,7 @@ open class KSToken : UIControl {
       var paddingX: CGFloat = 0.0
       var font = UIFont.systemFont(ofSize: 14)
       var tokenField: KSTokenField? {
-         return superview! as? KSTokenField
+         return superview?.superview as? KSTokenField
       }
       if ((tokenField) != nil) {
          paddingX = tokenField!.paddingX()!
