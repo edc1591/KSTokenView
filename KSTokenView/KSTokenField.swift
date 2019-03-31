@@ -161,7 +161,7 @@ open class KSTokenField: UITextField {
       text = ""
       autocorrectionType = UITextAutocorrectionType.no
       autocapitalizationType = UITextAutocapitalizationType.none
-      contentVerticalAlignment = UIControlContentVerticalAlignment.top
+      contentVerticalAlignment = UIControl.ContentVerticalAlignment.top
       returnKeyType = UIReturnKeyType.done
       text = KSTextEmpty
       backgroundColor = UIColor.white
@@ -177,7 +177,7 @@ open class KSTokenField: UITextField {
       _scrollView.delegate = self
       addSubview(_scrollView)
       
-      addTarget(self, action: #selector(KSTokenField.tokenFieldTextDidChange(_:)), for: UIControlEvents.editingChanged)
+      addTarget(self, action: #selector(KSTokenField.tokenFieldTextDidChange(_:)), for: UIControl.Event.editingChanged)
    }
    
    fileprivate func _setScrollRect() {
@@ -236,7 +236,7 @@ open class KSTokenField: UITextField {
    - returns: KSToken object
    */
    func addToken(_ token: KSToken) -> KSToken? {
-      if (token.title.characters.count == 0) {
+      if (token.title.count == 0) {
          token.title = "Untitled"
       }
       
@@ -252,7 +252,7 @@ open class KSTokenField: UITextField {
    
    fileprivate func _insertToken(_ token: KSToken, shouldLayout: Bool = true) {
       _scrollView.addSubview(token)
-      _scrollView.bringSubview(toFront: token)
+      _scrollView.bringSubviewToFront(token)
       token.setNeedsDisplay()
       if shouldLayout == true {
          updateLayout()
@@ -311,7 +311,7 @@ open class KSTokenField: UITextField {
       }
       token.removeFromSuperview()
       
-      let index = tokens.index(of: token)
+      let index = tokens.firstIndex(of: token)
       if (index != nil) {
          tokens.remove(at: index!)
       }
@@ -584,8 +584,8 @@ open class KSTokenField: UITextField {
                title += "\(token.title)\(_separatorText!)"
             }
             
-            if (title.characters.count > 0) {                
-                title = String(title[..<title.index(title.endIndex, offsetBy: -_separatorText!.characters.count)])
+            if (title.count > 0) {
+                title = String(title[..<title.index(title.endIndex, offsetBy: -_separatorText!.count)])
             }
             
             let width = KSUtils.widthOfString(title, font: font!)
